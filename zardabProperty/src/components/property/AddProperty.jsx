@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { addProperty } from "../utils/ApiFunctions" // Submit event handler uses this
 
 
 const AddProperty = () => {
@@ -16,10 +17,10 @@ const AddProperty = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
 
-    // Event handler for dynamically updating input
+    // Event handler for dynamically updates the state of the form fields in real time as the user enters data.
     const handlePropertyInputChange = (e) => {
         const name = e.target.name
-        let value = e.target.value
+        let value = e.target.value // e is an object, and target it the element that triggered the event
 
         if (name === "propertyPrice") { // checks if the input field is "propertyPrice"
             if (!isNaN(value)) {
@@ -30,9 +31,30 @@ const AddProperty = () => {
             }
         }
         setNewProperty({
-            ...newProperty,
+            ...newProperty, // ... is the spread operator to copy fields from newProperty state
             [name]: value // Update the specific field (name refers to the input name, and value is what user entered)
         })
+    }
+
+
+    // image preview and selected function event handler
+    const handleImageChange = (e) => {
+        const selectedImage = e.target.files[0]
+        setNewProperty({
+            ...newProperty,
+            photo: selectedImage
+        })
+        setImagePreview(URL.createObjectURL(selectedImage))
+    }
+
+    // handles submit event and calls addProperty function from ApiFunctions
+    const handleSubmit = async(e) => { 
+        e.preventDefault()
+        try{
+            const success = await addProperty(newProperty.photo, newProperty.propertyType, newProperty.propertyPrice)
+        }catch(error){
+            setErrorMessage(error.message)
+        }
     }
 
 
