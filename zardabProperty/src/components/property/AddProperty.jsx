@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { addProperty } from "../utils/ApiFunctions" // Submit event handler uses this
+import PropertyTypeSelector from "../common/PropertyTypeSelector"
 
 
 const AddProperty = () => {
@@ -17,14 +18,14 @@ const AddProperty = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
 
-    // Event handler for dynamically updates the state of the form fields in real time as the user enters data.
+    // Event handler dynamically updates the state of the form fields in real time as the user enters data.
     const handlePropertyInputChange = (e) => {
         const name = e.target.name
         let value = e.target.value // e is an object, and target it the element that triggered the event
 
         if (name === "propertyPrice") { // checks if the input field is "propertyPrice"
             if (!isNaN(value)) {
-                value.parseInt(value) // if value is number, attempt to convert it into integer from string
+                value = parseInt(value) // if value is number, attempt to convert it into integer from string
             }
             else {
                 value = "" // if value isnt number, set it to an empty string
@@ -54,6 +55,7 @@ const AddProperty = () => {
             const success = await addProperty(newProperty.photo, newProperty.propertyType, newProperty.propertyPrice)
             if (success !== undefined) {
                 setSuccessMessage("A new property has been added to the database.")
+                // following are reset to normal
                 setNewProperty({
                     photo: null,
                     propertyType: "",
@@ -68,23 +70,33 @@ const AddProperty = () => {
         } catch (error) {
             setErrorMessage(error.message)
         }
+        setTimeout(() => { // EFFECT FUNCTION (happens 3000 after the handleSubmit is called)
+            setSuccessMessage("")
+            setErrorMessage("")
+        }, 3000)
     }
 
     // UI
     return (
         <>
-            <section className="container, mt-5 mb-5">
-                <div className="row justify-content-centre">
+            <section className="container mt-5 mb-5">
+                <div className="row justify-content-center">
                     <div className="col-md-8 col-lg-6">
                         <h2 className="mt-5 mb-2">Add a New Property</h2>
 
+                        {/* Alerts */}
+                        {successMessage && <div className="alert alert-success fade show"> {successMessage}</div>}
+                        {errorMessage && <div className="alert alert-danger fade show"> {errorMessage}</div>}
 
+                        {/* Form */}
                         <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label htmlFor="propertyType" className="form-label">
                                     Property Type
                                 </label>
-                                <div></div> 
+                                <div><PropertyTypeSelector handlePropertyInputChange={handlePropertyInputChange}
+                                    newProperty={newProperty} />
+                                </div>
                             </div>
 
                             <div className="mb-3">

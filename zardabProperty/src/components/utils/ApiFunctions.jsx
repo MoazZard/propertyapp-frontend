@@ -24,7 +24,15 @@ export async function addProperty(photo, propertyType, propertyPrice) {
     }
 }
 
-
+// function to return all properties from the database
+export async function getAllProperties() {
+    try {
+        const result = await api.get("/properties/all-property");
+        return result.data;
+    } catch (error) {
+        throw new Error("Error fetching all properties");
+    }
+}
 
 // function to return all roomtypes from the database
 export async function getPropertyTypes() {
@@ -35,3 +43,10 @@ export async function getPropertyTypes() {
         throw new Error("Error fetching property types");
     }
 }
+
+/*
+Axios is a popular JavaScript library for making http requests from browsers or Node.js. Allows devs to communicate
+with api's by sending crud requests (POST, GET, PUT, DELETE) and handling with the responses
+1. Promise based
+2. Parses JSON responses auto
+*/

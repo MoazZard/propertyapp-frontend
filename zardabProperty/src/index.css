@@ -61,7 +61,7 @@ body {
 
 /* Hotel custom color */
 .btn-hotel {
-  background-color: rgb(169, 77, 123);
+  background-color: rgb(77, 114, 169);
   color: #fff;
 }
 
@@ -75,7 +75,7 @@ body {
 }
 
 .hotel-color {
-  color: rgb(169, 77, 123);
+  color: rgb(77, 114, 169);
 }
 
 .room-price {
