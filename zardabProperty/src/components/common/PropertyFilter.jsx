@@ -26,7 +26,7 @@ const PropertyFilter = ({ data, setFilteredData }) => {
 
     /* for every PROPERTY in data, make a new array with PROPERTY.PROPERTYTYPE */
     // mapping, extract unique pt from data (map creates new array,new Set removes duplicates, ...turns it into array) 
-    const uniquePropertyTypes = ["", ...new Set(data.map((property) => property.propertyType))] 
+    const uniquePropertyTypes = ["", ...new Set(data.map((property) => property.propertyType))]
 
     return (
         <div className="input-group mb-3">
@@ -37,9 +37,10 @@ const PropertyFilter = ({ data, setFilteredData }) => {
 
             <select className="form-select" value={filter} onChange={handleSelectChange}>
                 <option value={""}> Select a property type to filter.. </option>
+
                 {uniquePropertyTypes.map((propertyType, index) => (
-                    <option key={index} value={propertyType}>
-                        {propertyType}
+                    <option key={index} value={String(propertyType)}>
+                        {String(propertyType)}
                     </option>
                 ))}
             </select>

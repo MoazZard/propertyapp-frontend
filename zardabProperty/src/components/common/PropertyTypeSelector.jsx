@@ -13,7 +13,7 @@ const PropertyTypeSelector = ({ handlePropertyInputChange, newProperty }) => {
         getPropertyTypes().then((data) => { //.then() arrow function runs after a promise is fulfilled from getPropTypes
             setPropertyTypes(data)
         })
-    }, []) //array dependency 
+    }, [])
 
     const handleNewPropTypeInputChange = (e) => {
         setNewPropertyType(e.target.value)
@@ -34,38 +34,37 @@ const PropertyTypeSelector = ({ handlePropertyInputChange, newProperty }) => {
 
     return (
         <>
-            {propertyTypes.length > 0 && ( // IF THERE ARE PROPERTY TYPES, SHOW THEM
-                <div>
-                    <select required className='form-select' name='propertyType'
-                        value={newProperty.propertyType} onChange={(e) => {
-                            if (e.target.value === "Add New") {
-                                setShowNewPropertyTypeInput(true) // if you're adding a new propertytype
-                            } else {
-                                handlePropertyInputChange(e) // changing propertytype
-                            }
-                        }}>
-                        <option value={""}>select a property type</option>
-                        <option value={"Add New"}>Add New</option>
-                        {propertyTypes.map((type, index) => ( // shows all of the propertyTypes from data
-                            <option key={index} value={type}>
-                                {type}
-                            </option>
-                        ))}
-                    </select>
+            <div>
+                <select required className='form-select' name='propertyType' id='propertyType'
+                    value={newProperty.propertyType} onChange={(e) => {
+                        if (e.target.value === "Add New") {
+                            setShowNewPropertyTypeInput(true) // if you're adding a new propertytype
+                        } else {
+                            handlePropertyInputChange(e) // changing propertytype
+                        }
+                    }}>
+                    <option value={""}>select a property type</option>
+                    <option value={"Add New"}>Add New</option>
+                    <option value={""}></option>
+                    {propertyTypes.map((type, index) => ( // shows all of the propertyTypes from data
+                        <option key={index} value={type}>
+                            {type}
+                        </option>
+                    ))}
+                </select>
 
 
-                    {showNewPropertyTypeInput && (
-                        <div className='mt-2'>
-                            {/* Input group with form-control makes input have nice design */}
-                            <div className='input-group'>
-                                <input className='form-control' type='text' value={newPropertyType} // was an unregistered error
-                                    placeholder='Enter a new property type' onChange={handleNewPropTypeInputChange} />
-                                <button className='btn btn-hotel' type='button' onClick={handleAddNewPropertyType}>Add</button>
-                            </div>
+                {showNewPropertyTypeInput && (
+                    <div className='mt-2'>
+                        {/* Input group with form-control makes input have nice design */}
+                        <div className='input-group'>
+                            <input className='form-control' type='text' value={newPropertyType} // was an unregistered error
+                                placeholder='Enter a new property type' onChange={handleNewPropTypeInputChange} />
+                            <button className='btn btn-hotel' type='button' onClick={handleAddNewPropertyType}>Add</button>
                         </div>
-                    )}
-                </div>
-            )}
+                    </div>
+                )}
+            </div>
         </>
     )
 }
