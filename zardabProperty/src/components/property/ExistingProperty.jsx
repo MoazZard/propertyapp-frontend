@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllProperties } from "../utils/ApiFunctions"
+import { getAllProperties, deleteProperty } from "../utils/ApiFunctions"
 import Spinner from 'react-bootstrap/Spinner';
 import Col from 'react-bootstrap/Col';
 import PropertyFilter from "../common/PropertyFilter";
@@ -68,6 +68,23 @@ const ExistingProperty = () => {
     const indexOfFirstProperty = indexOfLastProperty - propsPerPage
     const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty)
 
+    const handleDelete = async (e) => {
+        let propertyId = e.target.getAttribute("propertyId")
+        try {
+            const success = await deleteProperty(propertyid)
+            if (success !== undefined) {
+                setSuccessMessage(`Successfully deleted property with id: ${propertyId}`)
+                fetchProperties();
+            }
+        } catch (error) {
+            setErrorMessage("Error deleting property")
+        }
+        setTimeout(() => {
+            setErrorMessage("")
+            setSuccessMessage("")
+        }, 3000);
+    }
+
 
     return (
         <>
@@ -83,7 +100,7 @@ const ExistingProperty = () => {
                             {errorMessage && <div className="alert alert-danger fade show"> {errorMessage}</div>}
 
                             <Col md={6} className="mb-3 mb-md-0">
-                                <PropertyFilter data={filteredProperties} setFilteredData={setFilteredProperty} />
+                                <PropertyFilter data={properties} setFilteredData={setFilteredProperty} />
                             </Col>
 
                             {/* Render the table only if there are properties */}
@@ -106,7 +123,7 @@ const ExistingProperty = () => {
                                                 <td>{property.propertyPrice}</td>
                                                 <td>
                                                     <button>View / Edit</button>
-                                                    <button>Delete</button>
+                                                    <button onClick={handleDelete} propertyid={property.id}>Delete</button>
                                                 </td>
                                             </tr>
                                         ))}

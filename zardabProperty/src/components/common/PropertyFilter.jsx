@@ -10,10 +10,7 @@ const PropertyFilter = ({ data, setFilteredData }) => {
 
         // display based on propertyType selected
         const filteredProperties = data.filter((property) =>
-            property
-                .propertyType
-                .toLowerCase()
-                .include(selectedPropertyType.toLowerCase())
+            property.propertyType.toLowerCase().includes(selectedPropertyType.toLowerCase())
         )
         setFilteredData(filteredProperties)
     }

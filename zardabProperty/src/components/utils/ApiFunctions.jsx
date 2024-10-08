@@ -44,6 +44,18 @@ export async function getPropertyTypes() {
     }
 }
 
+// function to delete a property by propertyId
+export async function deleteProperty(propertyId) {
+    const request = await api.delete("/properties/property-delete/${propertyId}", propertyId)
+
+    if (response.status === 201) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 /*
 Axios is a popular JavaScript library for making http requests from browsers or Node.js. Allows devs to communicate
 with api's by sending crud requests (POST, GET, PUT, DELETE) and handling with the responses
