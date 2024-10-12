@@ -46,13 +46,18 @@ export async function getPropertyTypes() {
 
 // function to delete a property by propertyId
 export async function deleteProperty(propertyId) {
-    const request = await api.delete("/properties/property-delete/${propertyId}", propertyId)
+    try {
+        const response = await api.delete(`/properties/property-delete/${propertyId}`)
 
-    if (response.status === 201) {
-        return true;
-    }
-    else {
-        return false;
+        // Check the response status
+        if (response.status === 201 || response.status === 200) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.error("Error deleting property:", error)
+        return false
     }
 }
 

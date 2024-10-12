@@ -64,20 +64,20 @@ const ExistingProperty = () => {
         return totalPageAmount
     }
 
-    const indexOfLastProperty = currentPage * propsPerPage // examples first = 10, last = 20 then current = 10-19
-    const indexOfFirstProperty = indexOfLastProperty - propsPerPage
-    const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty)
+    const indexOfLastProperty = currentPage * propsPerPage 
+    const indexOfFirstProperty = indexOfLastProperty - propsPerPage 
+    const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty) // examples first = 10, last = 20 then current = 10-19
 
     const handleDelete = async (e) => {
         let propertyId = e.target.getAttribute("propertyId")
         try {
-            const success = await deleteProperty(propertyid)
+            const success = await deleteProperty(propertyId)
             if (success !== undefined) {
                 setSuccessMessage(`Successfully deleted property with id: ${propertyId}`)
                 fetchProperties();
             }
         } catch (error) {
-            setErrorMessage("Error deleting property")
+            setErrorMessage(`Error deleting property: ${propertyId}`)
         }
         setTimeout(() => {
             setErrorMessage("")
