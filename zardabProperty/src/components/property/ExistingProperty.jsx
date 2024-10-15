@@ -69,7 +69,7 @@ const ExistingProperty = () => {
     const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty) // examples first = 10, last = 20 then current = 10-19
 
     const handleDelete = async (e) => {
-        let propertyId = e.target.getAttribute("propertyId")
+        let propertyId = e.target.getAttribute("propertyid")
         try {
             const success = await deleteProperty(propertyId)
             if (success !== undefined) {
@@ -122,8 +122,8 @@ const ExistingProperty = () => {
                                                 <td>{property.propertyType}</td>
                                                 <td>{property.propertyPrice}</td>
                                                 <td>
-                                                    <button>View / Edit</button>
-                                                    <button onClick={handleDelete} propertyid={property.id}>Delete</button>
+                                                    <button>View / Edit</button> {/* Makes a UI visible for editing the property for update */}
+                                                    <button className="btn btn-danger btn-sm" onClick={handleDelete} propertyid={property.id}>Delete</button>
                                                 </td>
                                             </tr>
                                         ))}
