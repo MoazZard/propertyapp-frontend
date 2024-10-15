@@ -4,6 +4,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import Col from 'react-bootstrap/Col';
 import PropertyFilter from "../common/PropertyFilter";
 import PropertyPaginator from "../common/PropertyPaginator";
+import { FaTrashAlt } from "react-icons/fa"
+import { Link } from "react-router-dom";
 
 
 
@@ -64,8 +66,8 @@ const ExistingProperty = () => {
         return totalPageAmount
     }
 
-    const indexOfLastProperty = currentPage * propsPerPage 
-    const indexOfFirstProperty = indexOfLastProperty - propsPerPage 
+    const indexOfLastProperty = currentPage * propsPerPage
+    const indexOfFirstProperty = indexOfLastProperty - propsPerPage
     const currentProperties = filteredProperties.slice(indexOfFirstProperty, indexOfLastProperty) // examples first = 10, last = 20 then current = 10-19
 
     const handleDelete = async (e) => {
@@ -122,8 +124,10 @@ const ExistingProperty = () => {
                                                 <td>{property.propertyType}</td>
                                                 <td>{property.propertyPrice}</td>
                                                 <td>
-                                                    <button>View / Edit</button> {/* Makes a UI visible for editing the property for update */}
-                                                    <button className="btn btn-danger btn-sm" onClick={handleDelete} propertyid={property.id}>Delete</button>
+                                                    <Link to={`/edit-property/${property.id}`}>View / Edit</Link> {/* Makes a UI visible for editing the property for update */}
+                                                    <button className="btn btn-danger btn-sm" onClick={handleDelete} propertyid={property.id}>
+                                                        <FaTrashAlt />
+                                                    </button>
                                                 </td>
                                             </tr>
                                         ))}
