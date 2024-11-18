@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 //Base url for application
 export const api = axios.create({

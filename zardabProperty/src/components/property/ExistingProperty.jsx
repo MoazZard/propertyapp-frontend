@@ -55,7 +55,7 @@ const ExistingProperty = () => {
     }, [selectedPropertyType, properties]); // only runs when either selectedPropertyType or properties change 
 
 
-    /* Managing pages */
+    /* Managing all pages */
     const onPageChange = (pageNumber) => {
         setCurrentPage(pageNumber)
     }
