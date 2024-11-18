@@ -36,7 +36,7 @@ const ExistingProperty = () => {
         }
     };
 
-    /* UseEffect (Manages what properties are displayed) */
+    /* UseEffect (Manages what properties are to be displayed) */
     useEffect(() => { // effect that acquires all of the properties using api
         fetchProperties();
     }, []); // Only run once on component mount (no dependencies here)
