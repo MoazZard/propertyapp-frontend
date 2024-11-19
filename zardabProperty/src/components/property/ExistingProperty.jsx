@@ -41,7 +41,7 @@ const ExistingProperty = () => {
         fetchProperties();
     }, []); // Only run once on component mount (no dependencies here)
 
-    // Separate effect for filtering based on selectedPropertyType
+    // A separate effect for filtering based on selectedPropertyType
     useEffect(() => {
         if (selectedPropertyType === "") {
             setFilteredProperty(properties);
